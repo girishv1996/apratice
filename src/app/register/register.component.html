@@ -19,7 +19,7 @@
   <h2>Vertical (basic) form</h2>
   <form [formGroup]="girish"  (ngSubmit)="submitDetails()">
     <div class="form-group">
-      <label for="fname">Enter FIRST NAME:</label>
+      <label for="fname">Please Enter FIRST NAME:</label>
       <input type="text" class="form-control" id="fname"  name="fname" formControlName="fname" autocomplete="off" >
       <div *ngIf="girish.controls.fname.invalid && (girish.controls.fname.dirty || girish.controls.fname.touched)"
       class="alert-warning">
