@@ -1,0 +1,20 @@
+
+{{check}}
+<table border="1" width="1000" cellspacing="0" cellpadding="12">
+    <th>Name</th>
+    <th>Marks</th>
+    <th>Age</th>
+    <tr *ngFor="let x of results">
+        <td align='center'>{{x.name}}</td>
+        <td>{{x.marks}}</td>
+        <td>{{x.age}}</td>
+        <td>{{x.marks | convert}}</td>
+    </tr>
+<br/>
+<br/>
+<div style ="text-align: center">
+    <button (click)='haiGirish()' id='giri'>CLICK HERE </button> 
+    </div>
+
+
+</table>
