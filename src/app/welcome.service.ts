@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class WelcomeService {
   sayHai()
   {
-  alert('welcome to our website.Thank you');
+  alert('welcome to our website.');
   }
 
   constructor() { 
