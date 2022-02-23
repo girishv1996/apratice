@@ -1,0 +1,49 @@
+$appSecret = ''
+$tenantId = ''
+$appId = ''
+$resourceAppIdUri = 'https://api.securitycenter.microsoft.com'
+$oAuthUri = "https://login.microsoftonline.com/$tenantId/oauth2/token"
+$authBody = [Ordered] @{
+    resource = "$resourceAppIdUri"
+    client_id = "$appId"
+    client_secret = "$appSecret"
+    grant_type = 'client_credentials'
+}
+$authResponse = Invoke-RestMethod -Method Post -Uri $oAuthUri -Body $authBody -ErrorAction Stop
+$token = $authResponse.access_token
+$token
+Out-File -FilePath "C:\Users\giris\OneDrive\Desktop\Hi\Latest-token.txt" -InputObject $token
+
+$filepath="C:\Users\giris\OneDrive\Desktop\Hi\devices.txt"
+$devices=Get-Content $filepath
+$headers = @{ 
+    'Content-Type' = 'application/json'
+    Accept = 'application/json'
+    Authorization = "Bearer $token" 
+}
+$comment="restrict App execution test on 05-02-2022"
+$body = 
+@{
+  "Comment" = $comment
+  
+}
+
+"OUTPUT :"
+
+foreach($name in $devices)
+{
+$url=""
+$url="https://api.securitycenter.microsoft.com/api/machines/$name/restrictCodeExecution"
+#$url;
+$response = Invoke-WebRequest -Method Post -Uri $url -Body ($body | ConvertTo-Json) -Headers $headers -ErrorAction Stop
+if($response.StatusCode -eq 201)   #check the response status code
+{
+ " $name -Restrict App Execution is applied Suvessfully ..!"     #update ended successfully
+}
+else
+{
+ " $name not sucess"   #update failed
+}  
+#$response
+#$url;
+}
